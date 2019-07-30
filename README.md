@@ -14,6 +14,6 @@ Look at these files :
  
  ```npm install``` 
  
- and them
+ and then
  
  ```npm start```
