@@ -1,0 +1,48 @@
+.App {
+    /* text-align: center; */
+    min-height: 100vh;
+    min-width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    flex-grow: 1;
+    justify-content: center;
+}
+
+.App .srd-demo-canvas,
+.App .row {
+    flex: 1;
+    min-width: 100%;
+    min-height: 100%;
+}
+
+.srd-demo-canvas {
+    background: #333;
+    border: #000 solid 1px;
+    margin: 0;
+    height: calc(100% - 550px);
+}
+
+.menu-button {
+    width: 25px;
+    height: 25px;
+}
+
+.App-link {
+    color: #61dafb;
+}
+
+.centralized {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #a4a4a4;
+    width: 100vw;
+    height: 100vh;
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
