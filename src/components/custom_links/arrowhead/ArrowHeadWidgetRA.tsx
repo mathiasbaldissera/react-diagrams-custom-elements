@@ -107,13 +107,14 @@ export  class ArrowHeadWidgetRA extends React.Component<
     return (
       <defs>
         <marker
-          // className={this.bem("-marker")}
-          id={id}
-          markerWidth="10"
-          markerHeight="10"
-          refX="5"
-          refY="4"
-          markerUnits="strokeWidth"
+        stroke="#000"
+        id={id}
+        markerWidth="10"
+        markerHeight="10"
+        refX="5"
+        refY="4"
+        orient="auto"
+        markerUnits="strokeWidth"
         >
           <path
             style={{

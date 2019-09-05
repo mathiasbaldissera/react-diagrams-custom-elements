@@ -10,8 +10,8 @@ import { EditableNodeModel } from "./components/custom_nodes/editableNode/Editab
 import { SimplePortFactory } from "./components/custom_nodes/editableNode/SimplePortFactory";
 import createEngine,{ DiagramModel, DiagramEngine, NodeLayerFactory, LinkLayerFactory, DefaultLinkModel, PortModelAlignment } from "@projectstorm/react-diagrams";
 import { BaseModel, LayerModel } from "@projectstorm/react-canvas-core";
-import ArrowHeadFactory from "./components/custom_links/ArrowHeadFactory";
-import ArrowHeadModel from "./components/custom_links/ArrowHeadModel";
+import ArrowHeadModel from "./components/custom_links/arrowhead/ArrowHeadModel";
+import ArrowHeadFactory from "./components/custom_links/arrowhead/ArrowHeadFactory";
 
 interface AppProps {}
 interface AppState {

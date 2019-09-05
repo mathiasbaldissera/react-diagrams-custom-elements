@@ -1,7 +1,7 @@
 import * as _ from "lodash";
 import { PortModel, PortModelAlignment, LinkModel, DefaultLinkModel } from "@projectstorm/react-diagrams";
 import { DeserializeEvent } from "@projectstorm/react-canvas-core";
-import ArrowHeadModel from "../../custom_links/ArrowHeadModel";
+import ArrowHeadModel from "../../custom_links/arrowhead/ArrowHeadModel";
 
 export class EditablePortModel extends PortModel {
 
