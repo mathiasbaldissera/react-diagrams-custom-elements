@@ -1,23 +1,17 @@
-import { NodeModel, DiagramEngine } from "storm-react-diagrams";
 import { EditablePortModel } from "./EditablePortModel";
 import _ from "lodash";
-
+import {NodeModel, PortModelAlignment} from '@projectstorm/react-diagrams'
 export class EditableNodeModel extends NodeModel {
   content: string;
   constructor(
     content: string = "content"
   ) {
-    super("Editable");
+    super({type: "Editable"});
     this.content = content;
-    this.addPort(new EditablePortModel("topa"));
-    this.addPort(new EditablePortModel("left"));
-    this.addPort(new EditablePortModel("bottom"));
-    this.addPort(new EditablePortModel("right"));
-  }
-
-  deSerialize(object: any, engine: DiagramEngine) {
-    super.deSerialize(object, engine);
-    this.content = object.content;
+    this.addPort(new EditablePortModel(PortModelAlignment.TOP));
+    this.addPort(new EditablePortModel(PortModelAlignment.LEFT));
+    this.addPort(new EditablePortModel(PortModelAlignment.BOTTOM));
+    this.addPort(new EditablePortModel(PortModelAlignment.RIGHT));
   }
 
   serialize() {

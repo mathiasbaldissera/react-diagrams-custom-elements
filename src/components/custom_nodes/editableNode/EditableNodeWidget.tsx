@@ -1,11 +1,11 @@
 import * as React from "react";
 import { EditableNodeModel } from "./EditableNodeModel";
-import { PortWidget, BaseWidget, BaseWidgetProps } from "storm-react-diagrams";
 import "./EditableNodeWidgedStyle.css";
 import EditableSingleFlield from "../../custom_components/EditableSingleField";
-import { triggerAsyncId } from "async_hooks";
-export interface EditableWidgetProps extends BaseWidgetProps {
+import { PortWidget, DiagramEngine, PortModelAlignment } from "@projectstorm/react-diagrams";
+export interface EditableWidgetProps {
   nodeModel: EditableNodeModel;
+  engine: DiagramEngine
 }
 
 export interface EditableWidgetState {
@@ -24,14 +24,14 @@ interface AtributeInformation {
   atribute: string;
 }
 
-export class EditableNodeWidget extends BaseWidget<
+export class EditableNodeWidget extends React.Component<
   EditableWidgetProps,
   EditableWidgetState
 > {
   private divElement: HTMLDivElement;
 
-  constructor(name: string, props: EditableWidgetProps) {
-    super(name, props);
+  constructor( props: EditableWidgetProps) {
+    super(props);
     this.state = {
       content: "",
       height: 0,
@@ -127,7 +127,6 @@ export class EditableNodeWidget extends BaseWidget<
           </div>
 
         </div>
-
         <div
           style={{
             position: "absolute",
@@ -137,7 +136,7 @@ export class EditableNodeWidget extends BaseWidget<
             top: this.state.height / 2 - 8
           }}
         >
-          <PortWidget name="left" node={this.props.nodeModel} />
+        <PortWidget style={{width: 15, height:15} }port={this.props.nodeModel.getPort(PortModelAlignment.LEFT)} engine={this.props.engine}/>
         </div>
         <div
           style={{
@@ -148,7 +147,7 @@ export class EditableNodeWidget extends BaseWidget<
             top: -15 //old: -8
           }}
         >
-          <PortWidget name="topa" node={this.props.nodeModel} />
+        <PortWidget style={{width: 15, height:15} } port={this.props.nodeModel.getPort(PortModelAlignment.TOP)} engine={this.props.engine}/>
         </div>
         <div
           style={{
@@ -159,7 +158,7 @@ export class EditableNodeWidget extends BaseWidget<
             top: this.state.height / 2 - 8
           }}
         >
-          <PortWidget name="right" node={this.props.nodeModel} />
+        <PortWidget style={{width: 15, height:15} } port={this.props.nodeModel.getPort(PortModelAlignment.RIGHT)} engine={this.props.engine}/>
         </div>
         <div
           style={{
@@ -170,7 +169,7 @@ export class EditableNodeWidget extends BaseWidget<
             top: this.state.height //old: this.state.height - 8
           }}
         >
-          <PortWidget name="bottom" node={this.props.nodeModel} />
+        <PortWidget style={{width: 15, height:15} } port={this.props.nodeModel.getPort(PortModelAlignment.BOTTOM)} engine={this.props.engine}/>
         </div>
       </div>
     );

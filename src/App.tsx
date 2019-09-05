@@ -3,21 +3,15 @@ import "./App.css";
 import Diagram from "./components/Diagram";
 import Toolbar from "./components/Toolbar";
 import { Row, Col, Button, ButtonToolbar } from "react-bootstrap";
-import {
-  DiagramEngine,
-  DiagramModel,
-  DefaultNodeModel,
-  PortModel,
-  BaseModel,
-  LinkModel,
-  DefaultLinkModel,
-  NodeModel
-} from "storm-react-diagrams";
+
 import { EditablePortModel } from "./components/custom_nodes/editableNode/EditablePortModel";
 import { EditableNodeFactory } from "./components/custom_nodes/editableNode/EditableNodeFactory";
 import { EditableNodeModel } from "./components/custom_nodes/editableNode/EditableNodeModel";
 import { SimplePortFactory } from "./components/custom_nodes/editableNode/SimplePortFactory";
-require("storm-react-diagrams/dist/style.min.css");
+import createEngine,{ DiagramModel, DiagramEngine, NodeLayerFactory, LinkLayerFactory, DefaultLinkModel, PortModelAlignment } from "@projectstorm/react-diagrams";
+import { BaseModel, LayerModel } from "@projectstorm/react-canvas-core";
+import ArrowHeadFactory from "./components/custom_links/ArrowHeadFactory";
+import ArrowHeadModel from "./components/custom_links/ArrowHeadModel";
 
 interface AppProps {}
 interface AppState {
@@ -52,30 +46,36 @@ class App extends React.Component<AppProps, AppState> {
     node1.setPosition(100, 200);
     node2.setPosition(500, 200);
     node3.setPosition(300, 25);
+    let link = new ArrowHeadModel;
+    link.setSourcePort(node1.getPort(PortModelAlignment.RIGHT))
+    link.setTargetPort(node2.getPort(PortModelAlignment.LEFT))
 
-    this.setState({ itens: [node1, node2, node3] });
+    this.setState({ itens: [node1, node2, node3, link] });
   }
 
   _serializeDiagram(){
     let serialization = JSON.stringify(
-      this.state.model.serializeDiagram());
+      this.state.model.serialize());
       this.setState({serialization})    
   }
   setupFactories(engine: DiagramEngine) {
-    engine.registerPortFactory(
+    engine.getPortFactories().registerFactory(
       new SimplePortFactory("Editable", () => new EditablePortModel())
     );
-    engine.registerNodeFactory(new EditableNodeFactory());
+    engine.getNodeFactories().registerFactory(new EditableNodeFactory());
+    engine.getLinkFactories().registerFactory(new ArrowHeadFactory())
   }
 
+  engine = createEngine()
   render() {
-    var engine = new DiagramEngine();
 
-    engine.installDefaultFactories();
-    this.setupFactories(engine);
-
-    this.state.model.addAll(...this.state.itens);
-    engine.setDiagramModel(this.state.model);
+    this.setupFactories(this.engine);
+    let model = new DiagramModel()
+    model.addAll(...this.state.itens )
+    this.engine.setModel(model)
+    // this.setState({model: new DiagramModel()})
+    // this.state.model.addAll(...this.state.itens);
+    // engine.setModel(this.state.model);
 
     return (
       <div className="App">
@@ -134,7 +134,7 @@ class App extends React.Component<AppProps, AppState> {
             />
           </Col>
           <Col xs={10} className="m-0 p-0">
-            <Diagram engine={engine} />
+            <Diagram engine={this.engine} />
           </Col>
         </Row>
       </div>
